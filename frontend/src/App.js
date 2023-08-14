@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "date-fns";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const baseURL = "http://localhost:5000";
 
@@ -73,19 +74,23 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <section>
+    <div className="App border border-success">
+      <h1 className="text-white mb-2">Supplies</h1>
+      <section className="mb-3">
         <form onSubmit={handleSubmit}>
-          <label htmlFor="description">Description</label>
+          <label className="d-flex my-2 text-center" htmlFor="description"><h5 className="">Add item</h5></label>
+          <div className="d-flex text text-start">
           <input
+            className="input-group-text me-2"
             onChange={(e) => handleChange(e, "description")}
             type="text"
             name="description"
             id="description"
-            placeholder="List"
+            placeholder="Add.."
             value={description}
           />
-          <button type="submit">Submit</button>
+          <button type="submit" className="btn btn-light">Submit</button>
+          </div>
         </form>
       </section>
       <section>
