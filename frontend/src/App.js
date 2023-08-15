@@ -89,7 +89,7 @@ function App() {
             placeholder="Add.."
             value={description}
           />
-          <button type="submit" className="btn btn-light">Submit</button>
+          <button type='submit' className="btn btn-light">Submit</button>
           </div>
         </form>
       </section>
