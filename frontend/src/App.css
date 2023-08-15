@@ -11,6 +11,10 @@ input::placeholder {
   text-align: left !important;
 }
 
+.inputList{
+  text-align: left !important;
+}
+
 section {
   background-color: #282c34;
   display: flex;

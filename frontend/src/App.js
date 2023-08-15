@@ -3,10 +3,21 @@ import axios from "axios";
 import { format } from "date-fns";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faXmark} from '@fortawesome/free-solid-svg-icons';
+import {faPenToSquare} from '@fortawesome/free-solid-svg-icons';
+import { Helmet } from "react-helmet";
 
 const baseURL = "http://localhost:5000";
 
 function App() {
+
+  <Helmet>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"/>
+  </Helmet>
+
   const [description, setDescription] = useState("");
   const [editDescription, setEditDescription] = useState("");
   const [eventsList, setEventsList] = useState([]);
@@ -74,12 +85,14 @@ function App() {
   }, []);
 
   return (
-    <div className="App border border-success">
-      <h1 className="text-white mb-2">Supplies</h1>
-      <section className="mb-3">
-        <form onSubmit={handleSubmit}>
+    <div className="App">
+      <h1 className="text-white mb-2 mt-2">Supplies</h1>
+      
+      {/* Input */}
+      <section className="mb-3 ">
+        <form onSubmit={handleSubmit} className="shadow p-2 px-4 pb-3 ms-4 rounded">
           <label className="d-flex my-2 text-center" htmlFor="description"><h5 className="">Add item</h5></label>
-          <div className="d-flex text text-start">
+          <div className="d-flex text-start">
           <input
             className="input-group-text me-2"
             onChange={(e) => handleChange(e, "description")}
@@ -93,31 +106,35 @@ function App() {
           </div>
         </form>
       </section>
-      <section>
+
+      {/* List generated */}
+      <section >
         <ul>
           {eventsList.map((event) => {
             if (eventId === event.id) {
               return (
                 <li key={event.id}>
                   <form onSubmit={handleSubmit} key={event.id}>
+                    <div className="d-flex text-start">
                     <input
+                      className="inputList input-group-text me-2"  
                       onChange={(e) => handleChange(e, "edit")}
                       type="text"
                       name="editDescription"
                       id="editDescription"
                       value={editDescription}
                     />
-                    <button type="submit">Submit</button>
+                    <button type="submit" className="btn btn-light">Submit</button>
+                    </div>
                   </form>
                 </li>
               );
             } else {
               return (
-                <li key={event.id}>
-                  {format(new Date(event.created_at), "MM/dd, p")}: {" "}
-                  {event.description}
-                  <button onClick={() => toggleEdit(event)}>Edit</button>
-                  <button onClick={() => handleDelete(event.id)}>X</button>
+                <li key={event.id} className="mb-3 shadow p-2 rounded d-flex align-items-center text-center">
+                  <FontAwesomeIcon icon={faXmark} onClick={() => handleDelete(event.id)} type="button" className="btn btn-outline-light border-0 me-2" />
+                  <p className="m-0">{`${event.description} : ${format(new Date(event.created_at), "MM/dd, p")}`}</p>
+                  <FontAwesomeIcon icon={faPenToSquare} onClick={() => toggleEdit(event)} type="button" className="btn btn-outline-light border-0" />
                 </li>
               );
             }
